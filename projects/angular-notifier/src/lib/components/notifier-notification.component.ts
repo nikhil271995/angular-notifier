@@ -184,6 +184,9 @@ export class NotifierNotificationComponent implements AfterViewInit {
 				const animation: Animation = this.element.animate( animationData.keyframes, animationData.options );
 				animation.onfinish = () => {
 					this.startAutoHideTimer();
+					if (this.notification.hideOnlyOnAction) {
+						this.pauseAutoHideTimer();
+					}
 					resolve(); // Done
 				};
 
@@ -192,6 +195,9 @@ export class NotifierNotificationComponent implements AfterViewInit {
 				// Show notification
 				this.renderer.setStyle( this.element, 'visibility', 'visible' );
 				this.startAutoHideTimer();
+				if (this.notification.hideOnlyOnAction) {
+					this.pauseAutoHideTimer();
+				}
 				resolve(); // Done
 
 			}
