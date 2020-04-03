@@ -87,7 +87,8 @@ export interface NotifierNotificationOptions {
 	/**
 	 * To show a particular notification for
 	 * indefinite period until user performs
-	 * an action
+	 * an action or notification is cleared
+	 * by notifier api
 	 */
-	hideOnlyOnAction: boolean;
+	hideOnlyOnAction?: boolean;
 }

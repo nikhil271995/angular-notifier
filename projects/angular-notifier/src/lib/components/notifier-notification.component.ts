@@ -292,23 +292,32 @@ export class NotifierNotificationComponent implements AfterViewInit {
 
 	/**
 	 * Handle mouseover over notification area
+	 * Don't Perform any action if hideOnlyAction
+	 * is true
 	 */
 	public onNotificationMouseover(): void {
-		if ( this.config.behaviour.onMouseover === 'pauseAutoHide' ) {
-			this.pauseAutoHideTimer();
-		} else if ( this.config.behaviour.onMouseover === 'resetAutoHide' ) {
-			this.stopAutoHideTimer();
+		if (this.notification.hideOnlyOnAction !== true) {
+			if (this.config.behaviour.onMouseover === 'pauseAutoHide') {
+				this.pauseAutoHideTimer();
+			} else if (this.config.behaviour.onMouseover === 'resetAutoHide') {
+				this.stopAutoHideTimer();
+			}
 		}
+
 	}
 
 	/**
 	 * Handle mouseout from notification area
+	 * Don't Perform any action if hideOnlyAction
+	 * is true
 	 */
 	public onNotificationMouseout(): void {
-		if ( this.config.behaviour.onMouseover === 'pauseAutoHide' ) {
-			this.continueAutoHideTimer();
-		} else if ( this.config.behaviour.onMouseover === 'resetAutoHide' ) {
-			this.startAutoHideTimer();
+		if (this.notification.hideOnlyOnAction !== true) {
+			if (this.config.behaviour.onMouseover === 'pauseAutoHide') {
+				this.continueAutoHideTimer();
+			} else if (this.config.behaviour.onMouseover === 'resetAutoHide') {
+				this.startAutoHideTimer();
+			}
 		}
 	}
 
@@ -324,7 +333,7 @@ export class NotifierNotificationComponent implements AfterViewInit {
 	/**
 	 * Start the auto hide timer (if enabled)
 	 */
-	private startAutoHideTimer(): void {
+	public startAutoHideTimer(): void {
 		if ( this.config.behaviour.autoHide !== false && this.config.behaviour.autoHide > 0 ) {
 			this.timerService.start( this.config.behaviour.autoHide ).then( () => {
 				this.onClickDismiss();
@@ -335,7 +344,7 @@ export class NotifierNotificationComponent implements AfterViewInit {
 	/**
 	 * Pause the auto hide timer (if enabled)
 	 */
-	private pauseAutoHideTimer(): void {
+	public pauseAutoHideTimer(): void {
 		if ( this.config.behaviour.autoHide !== false && this.config.behaviour.autoHide > 0 ) {
 			this.timerService.pause();
 		}
@@ -344,7 +353,7 @@ export class NotifierNotificationComponent implements AfterViewInit {
 	/**
 	 * Continue the auto hide timer (if enabled)
 	 */
-	private continueAutoHideTimer(): void {
+	public continueAutoHideTimer(): void {
 		if ( this.config.behaviour.autoHide !== false && this.config.behaviour.autoHide > 0 ) {
 			this.timerService.continue();
 		}
@@ -353,7 +362,7 @@ export class NotifierNotificationComponent implements AfterViewInit {
 	/**
 	 * Stop the auto hide timer (if enabled)
 	 */
-	private stopAutoHideTimer(): void {
+	public stopAutoHideTimer(): void {
 		if ( this.config.behaviour.autoHide !== false && this.config.behaviour.autoHide > 0 ) {
 			this.timerService.stop();
 		}
