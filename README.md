@@ -325,9 +325,10 @@ With the `behaviour` property you can define how notifications will behave in di
 behaviour: {
 
   /**
-   * Defines whether each notification will hide itself automatically after a timeout passes
-   * @type {number | false}
-   */
+     * Defines whether each notification will hide itself automatically after a timeout passes
+     * support and object with a key per type defaulting to default key.
+     * @type {number | false | [{key: string]: number | false}}
+     */
   autoHide: 5000,
 
   /**
